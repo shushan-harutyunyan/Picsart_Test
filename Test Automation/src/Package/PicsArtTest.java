@@ -33,6 +33,7 @@ public class PicsArtTest {
 	static String classname_Cover = "main-carousel-item-root-0-2-34";
 	static String classname_Cover_centeredContent = "main-carousel-item-centeredContent-0-2-38";
 	static String xpath_Cover_Title = "//*[@id=\"__next\"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[1]/div/div[2]/h1/a";
+	//*[@id="__next"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[2]/div/div[2]/h1/a
 	static String classname_postTitle = "post-single-postTitle-0-2-222";
 	static String classname_image_under_cover = "main-carousel-suggestions-itemHolder-0-2-143";
 	
@@ -48,7 +49,7 @@ public class PicsArtTest {
 	
 	static Logger log = LogManager.getLogger(PicsArtTest.class);
 	
-	public static void main(String[] args) throws InterruptedException
+    public static void main(String[] args) throws InterruptedException
 	{
 
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver 3");
@@ -191,6 +192,7 @@ public class PicsArtTest {
 				}
 				WebElement Image_under_cover = wait.until(ExpectedConditions.elementToBeClickable(By.className(classname_image_under_cover)));
 				Image_under_cover.click();
+				log.info(Image_under_cover);
 			}
 			catch (Exception ex){
 				log.error(ex.getMessage());
@@ -203,3 +205,4 @@ public class PicsArtTest {
 		driver.close();
 	}
 }
+
