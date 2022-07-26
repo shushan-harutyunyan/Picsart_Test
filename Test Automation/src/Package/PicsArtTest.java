@@ -1,6 +1,5 @@
 package Package;
 import java.time.Duration;
-//import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,13 +8,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.apache.log4j.AppenderSkeleton;
-//import org.apache.log4j.Level;
+
 import org.apache.log4j.Logger;
-//import org.apache.logging.slf4j.Log4jLoggerFactory;
 import org.apache.log4j.LogManager;
-//import org.apache.log4j.spi.LoggingEvent;
-//import org.apache.log4j.*;
 
 public class PicsArtTest {
 	static String xpath_PicsArt = "//*[@id=\"header-desktop\"]/div/div[1]/a/img";
@@ -32,8 +27,7 @@ public class PicsArtTest {
 	static String xpath_right_arrow_button = "//*[@id=\"__next\"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/button[2]/i/";
 	static String classname_Cover = "main-carousel-item-root-0-2-34";
 	static String classname_Cover_centeredContent = "main-carousel-item-centeredContent-0-2-38";
-	static String xpath_Cover_Title = "//*[@id=\"__next\"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[1]/div/div[2]/h1/a";
-	//*[@id="__next"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[2]/div/div[2]/h1/a
+	static String xpath_Cover_Image = "//*[@id=\"__next\"]/div/div[2]/div/div[2]/div[1]/div/div[1]/div/div[1]/a/span/img";
 	static String classname_postTitle = "post-single-postTitle-0-2-222";
 	static String classname_image_under_cover = "main-carousel-suggestions-itemHolder-0-2-143";
 	
@@ -58,9 +52,9 @@ public class PicsArtTest {
 		Actions actions = new Actions(driver);
 		driver.manage().window().maximize();
 
-		int Delay_time = 1000;
+		int Delay_time = 3000;
 
-		int Retry_count = 0;
+		int Retry_count = 3;
 		for (int i = 1; i <= Retry_count; i++) {
 			try {
 				driver.get(PicsArt_base_url);
@@ -169,12 +163,9 @@ public class PicsArtTest {
 				Left_Arrow.click();
 				Thread.sleep(Delay_time);
 				WebElement Cover_centeredContent = wait.until(ExpectedConditions.elementToBeClickable(By.className(classname_Cover_centeredContent)));
-				WebElement Cover_Title = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath_Cover_Title)));
+				WebElement Cover_Image = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath_Cover_Image)));
 				Cover_centeredContent.click();
-				char ch = '-';
-				String Post_Title_to_verify = Cover_Title.getText().replace(' ',ch).toLowerCase();
-				Post_Title_to_verify = Post_Title_to_verify.substring(0, Post_Title_to_verify.length() - 1);
-				log.info(Post_Title_to_verify);
+				String Post_Title_to_verify = Cover_Image.getAttribute("alt");				
 				Thread.sleep(Delay_time);
 				String Post_url = driver.getCurrentUrl();
 				if(!(Post_url_to_verify + Post_Title_to_verify).equals(Post_url)) {
